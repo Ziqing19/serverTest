@@ -1,7 +1,7 @@
+require("dotenv").config({ path: "./.env", override: true });
+
 const http = require('http');
 const { connect, getCollection } = require("./mongo");
-
-require("dotenv").config();
 
 const hostname = '127.0.0.1';
 const port = parseInt(process.env.PORT) || 4000;
