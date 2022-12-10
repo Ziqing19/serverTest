@@ -1,7 +1,10 @@
 const http = require('http');
+const { connect, getCollection } = require("./mongo");
+
+require("dotenv").config();
 
 const hostname = '127.0.0.1';
-const port = 4000;
+const port = parseInt(process.env.PORT) || 4000;
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
@@ -9,6 +12,9 @@ const server = http.createServer((req, res) => {
   res.end('Hello, World!\n');
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at ${hostname}:${port}/`);
-});
+connect().then(() => {
+  getCollection("Operators").findOne({}).then(console.log);
+  server.listen(port, hostname, () => {
+    console.log(`Server running at ${hostname}:${port}`);
+  });
+})
